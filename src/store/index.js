@@ -1,30 +1,28 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import about from './about'
+import home from './home'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    count: 0
+    total: 10,
   },
   mutations: {
-    increment(state, v) {
-      console.log(v)
-      state.count += v
+    change(state) {
+      console.log('111')
+      state.total = 1
     }
   },
   actions: {
-    inAsync(context) {
-      setTimeout(function() {
-        context.commit('increment', 10)
-      }, 1000)
-    }
+
   },
   getters: {
-    numb(state) {
-      return state.count % 2
-    }
+
   },
   modules: {
+    about: about,
+    home: home,
   }
 })
