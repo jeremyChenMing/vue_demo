@@ -60,3 +60,41 @@ actions: {
 // 局部的actions中可以访问全局的mutations, 需要加入第三个参数{root: true}
 commit('change', result, {root: true})
 ```
+
+2. 表单和vuex绑定（例如input 的value值绑定的是vuex state中的值）
+```js
+// 需要
+<input :value="message" @input="updateMessage">
+// 0000
+computed: {
+  ...mapState({
+    message: state => state.obj.message
+  })
+},
+methods: {
+  updateMessage (e) {
+    this.$store.commit('updateMessage', e.target.value)
+  }
+}
+
+// 00000
+mutations: {
+  updateMessage (state, message) {
+    state.obj.message = message
+  }
+}
+```
+    - 除此之外还有两外一个方法，就是直接绑定v-model，然后访问属性的getter, setter
+    ```js
+    <input v-model="message">
+    computed: {
+        message: {
+            get () {
+            return this.$store.state.obj.message
+            },
+            set (value) {
+            this.$store.commit('updateMessage', value)
+            }
+        }
+    }
+    ```
