@@ -27,7 +27,13 @@ export default {
     ...mapGetters("home",["calcs"])
   },
   //生命周期 - 创建完成（访问当前this实例）
-  created() {},
+  created() {
+    this.$store.subscribe( (mutation, state) => {
+      console.log(mutation.type)
+      console.log(mutation.payload)
+      console.log(state)
+    })
+  },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
     console.log(this.$store.state.total)
@@ -36,8 +42,8 @@ export default {
   methods: {
     hanlde: function() {
       // this.$store.commit('home/add', {name: 'add', age: 1})
-      this.$store.dispatch('home/inAsync')
-      // this.$store.commit('change')
+      // this.$store.dispatch('home/inAsync')
+      this.$store.commit('change', 10)
     }
   }
 };

@@ -11,7 +11,6 @@ export default new Vuex.Store({
   },
   mutations: {
     change(state) {
-      console.log('111')
       state.total = 1
     }
   },

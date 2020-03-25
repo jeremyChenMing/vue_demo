@@ -1,35 +1,60 @@
 <template>
   <div id="app">
-    
-    <router-link to="/">home</router-link> &nbsp;&nbsp;
-    <router-link to="/about">about</router-link>
-    <div>总数： {{count}}</div>
-    <p>total: {{this.$store.state.total}}</p>
-    <router-view></router-view>
+    <el-container>
+      <el-header>
+        <h1>案例</h1>
+      </el-header>
+      <el-container>
+        <el-aside width="200px">
+          <router-link active-class="active" v-for="item in navs" :exact="item.exact" :to="item.link" :key="item.id">{{item.name}}</router-link>
+        </el-aside>
+        <el-main>
+          <router-view></router-view>
+        </el-main>
+      </el-container>
+    </el-container>
   </div>
 </template>
 
 <script>
 export default {
   data() {
-    return{}
+    return {
+      navs: [
+        {name: '购物车', link: '/', exact: true, id: 1},
+        {name: '其他', link: '/about', exact: false, id: 2},
+      ]
+    };
   },
-  computed: {
-    count() {
-      return this.$store.state.home.list.length + this.$store.state.about.list.length
-
-      // return 0;
-    }
-  },
-  created() {
-    
-  },
-  mounted() {
-
-  }
-}
+  computed: {},
+  created() {},
+  mounted() {}
+};
 </script>
 
-<style>
+<style lang="less">
+@import './less/Index.less';
 
+.el-container{
+  height: 100%;
+}
+.el-header{
+  box-shadow: 0 0 5px 5px rgba(0, 0, 0, .1);
+  display: flex;
+  align-items: center;
+}
+.el-aside{
+  border-right: 1px solid rgba(0, 0, 0, .1);
+  display: flex;
+  flex-direction: column;
+  & > a{
+    line-height: 42px;
+    padding: 0 10px;
+    color: #000;
+  }
+  .active{
+    background-color: rgba(41, 132, 235, .5);
+    color: #ffffff;
+  }
+}
 </style>
