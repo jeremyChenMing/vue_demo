@@ -1,27 +1,27 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
-import about from './about'
-import home from './home'
+import digital from './modules/digital'
+import house from './modules/house'
 
 Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    total: 10,
+    shopping: 0,
   },
   mutations: {
-    change(state) {
-      state.total = 1
-    }
+    
   },
   actions: {
 
   },
   getters: {
-
+    listData(state){
+      return state.digital.choice.concat(state.house.choice)
+    }
   },
   modules: {
-    about: about,
-    home: home,
+    digital: digital,
+    house: house,
   }
 })

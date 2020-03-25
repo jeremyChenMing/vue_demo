@@ -5,6 +5,11 @@ import {
     Aside,
     Main,
     Button, 
+    Badge,
+    Tabs,
+    TabPane,
+    Checkbox,
+    CheckboxGroup
 } from 'element-ui'
 
 Vue.use(Button)
@@ -12,3 +17,8 @@ Vue.use(Container)
 Vue.use(Header)
 Vue.use(Aside)
 Vue.use(Main)
+Vue.use(Badge)
+Vue.use(Tabs)
+Vue.use(TabPane)
+Vue.use(Checkbox)
+Vue.use(CheckboxGroup)
