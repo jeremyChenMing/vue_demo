@@ -18,6 +18,9 @@ const digital = {
             })
             // this.commit('change', {need, type: 'digital'}, {root: true})
             state.choice = need
+        },
+        reset(state) {
+            state.choice = []
         }
     },
     actions: {

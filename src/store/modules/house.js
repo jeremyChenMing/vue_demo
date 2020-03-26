@@ -19,6 +19,9 @@ const house = {
             })
             // this.commit('change', {need, type: 'house'}, {root: true})
             state.choice = need
+        },
+        reset(state) {
+            state.choice = []
         }
     },
     actions: {

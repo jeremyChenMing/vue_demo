@@ -51,7 +51,7 @@ export default {
     },
     handleBuy() {
       console.log(this.listData)
-      this.$router.push('/buy')
+      this.$router.push('/shopping/buy')
     }
   }
 };

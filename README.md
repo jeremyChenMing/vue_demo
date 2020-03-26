@@ -98,3 +98,34 @@ mutations: {
         }
     }
     ```
+
+
+
+
+
+### 小技巧
+1. echarts在页面自适应宽度，防止在刷新的时候变形，主要的技术手段的不采用setTimeout延迟来解决，利用生命周期及$nextTick
+  - $nextTick: 将回调延迟到下次 DOM 更新循环之后执行。在修改数据之后立即使用它，然后等待 DOM 更新。它跟全局方法 Vue.nextTick 一样，不同的是回调的 this 自动绑定到调用它的实例上
+  ```js
+  created() {
+    his.$nextTick(() => {
+      this.loadEchart(); // 这个是设计echart的方法
+    });
+  }
+  mounted() {
+    // b绑定resize方法， 在浏览器改变的时候再次执行
+    let _this = this;
+    window.onresize = function() {
+      console.log("onresize");
+      _this.myChart.resize(); // 实例myChart有resize方法用来重绘的
+    };
+  }
+  methods: {
+    loadEchart() {
+      this.myChart = this.$echarts.init(document.getElementById("echartsBox"));
+      const options = {...}
+      this.myChart.setOption(options);
+    }
+  }
+  // 那么以上的执行顺序就为created -> mounted -> $nextTick -> loadEchart
+  ```

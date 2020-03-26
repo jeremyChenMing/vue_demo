@@ -21,8 +21,9 @@ export default {
   data() {
     return {
       navs: [
-        {name: '购物车', link: '/list', exact: false, id: 1},
-        {name: '其他', link: '/about', exact: false, id: 2},
+        {name: '首页', link: '/', exact: true, id: 1},
+        {name: '购物车', link: '/shopping', exact: false, id: 2},
+        {name: '其他', link: '/about', exact: false, id: 3},
       ]
     };
   },

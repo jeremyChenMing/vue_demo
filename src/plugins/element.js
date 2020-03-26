@@ -9,7 +9,8 @@ import {
     Tabs,
     TabPane,
     Checkbox,
-    CheckboxGroup
+    CheckboxGroup,
+    Notification
 } from 'element-ui'
 
 Vue.use(Button)
@@ -22,3 +23,5 @@ Vue.use(Tabs)
 Vue.use(TabPane)
 Vue.use(Checkbox)
 Vue.use(CheckboxGroup)
+
+Vue.prototype.$notify = Notification;
