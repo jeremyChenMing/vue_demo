@@ -2,6 +2,13 @@
 <template>
   <div>
     <div id="echartsBox"></div>
+    <div>
+      <el-button @click="handleLogin">登录</el-button>
+      <el-button @click="handleGet">GET</el-button>
+      <el-button @click="handlePost">POST</el-button>
+      <el-button @click="handlePut">PUT</el-button>
+      <el-button @click="handleDel">DELETE</el-button>
+    </div>
   </div>
 </template>
 
@@ -13,30 +20,26 @@ import {
   schema,
   itemStyle
 } from "../constants/constants";
+import { logins, getMessage, addPolicysMessage, updatePolicys, deletePolicys } from "@/services/api";
 export default {
   data() {
     return {};
   },
   //生命周期 - 创建完成（访问当前this实例）
   created() {
-    console.log("created");
     this.$nextTick(() => {
-      console.log("nextTick");
       this.loadEchart();
     });
   },
   //生命周期 - 挂载完成（访问DOM元素）
   mounted() {
-    console.log("mounted");
     let _this = this;
     window.onresize = function() {
-      console.log("onresize");
       _this.myChart.resize();
     };
   },
   methods: {
     loadEchart() {
-      console.log("loadEchart");
       this.myChart = this.$echarts.init(document.getElementById("echartsBox"));
       const options = {
         backgroundColor: "#404a59",
@@ -217,11 +220,58 @@ export default {
         ]
       };
       this.myChart.setOption(options);
+    },
+    handleLogin() {
+      logins({
+        mobile: "18566699969",
+        password: "XZ123.,",
+        code: "",
+        type: "pwd",
+        user_type: "2"
+      })
+        .then(data => {
+          console.log(data);
+          localStorage.setItem('token', JSON.stringify(data.token))
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    handleGet() {
+      getMessage().then(data => {
+        console.log(data);
+      });
+    },
+    handlePost() {
+      addPolicysMessage({
+        status: '0',
+        title: '测试标题',
+        content: '<p>哈哈哈测试用的</p>'
+      }).then(data => {
+        console.log(data)
+      })
+    },
+    handlePut() {
+      updatePolicys('e45ce57b4fdf4fffa8d03553cfeb8687',
+      {
+        title: '123',
+        status: '0',
+        content: '<p>哈哈哈测试用的</p>'
+      }).then(data => {
+        console.log(data)
+      })
+    },
+    handleDel(){
+      deletePolicys({
+        uuids: ['e45ce57b4fdf4fffa8d03553cfeb8687']
+      }).then(data => {
+        console.log(data)
+      })
     }
   },
   destroyed() {
-      console.log('销毁')
-      this.myChart.dispose() // 消除实例
+    console.log("销毁");
+    this.myChart.dispose(); // 消除实例
     //   this.myChart.clear() // 只是清楚了画布
   }
 };
