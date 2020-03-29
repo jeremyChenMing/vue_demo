@@ -9,6 +9,19 @@
       <el-button @click="handlePut">PUT</el-button>
       <el-button @click="handleDel">DELETE</el-button>
     </div>
+
+    <div style="padding: '20px">
+      <el-button @click="handleGetHttp">get-http请求</el-button>
+      <el-button @click="handlePostHttp">post-http请求</el-button>
+      <el-upload 
+        :action="action"
+        :headers="headers"
+        name='file'
+      >
+        <el-button>上传</el-button>
+      </el-upload>
+      <input type="file" @input="change" />
+    </div>
   </div>
 </template>
 
@@ -23,7 +36,17 @@ import {
 import { logins, getMessage, addPolicysMessage, updatePolicys, deletePolicys } from "@/services/api";
 export default {
   data() {
-    return {};
+    return {
+      action: '/api/v1/basic/upload-file'
+    };
+  },
+  computed: {
+    headers() {
+      const token = localStorage.getItem('token')
+      return {
+        'Authorization': `JWT ${JSON.parse(token)}`
+      }
+    }
   },
   //生命周期 - 创建完成（访问当前this实例）
   created() {
@@ -267,6 +290,32 @@ export default {
       }).then(data => {
         console.log(data)
       })
+    },
+
+
+
+
+    //$http请求
+    handleGetHttp() {
+      this.$Http.getMessage({
+        page:1,
+        page_size: 5
+      }).then(data => {
+        console.log(data)
+      })
+    },
+    handlePostHttp() {
+      this.$Http.addPolicysMessage({
+        status: '0',
+        title: '测试标题',
+        content: '<p>哈哈哈测试用的</p>'
+      }).then(data => {
+        console.log(data)
+      })
+    },
+    change(e) {
+      console.log(e.target.files[0])
+      this.$Http.file({file: e.target.files[0]}, true)
     }
   },
   destroyed() {

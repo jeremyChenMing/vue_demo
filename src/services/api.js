@@ -59,3 +59,23 @@ export async function deletePolicys(params = {}) {
         data: params,
     });
 }
+
+
+export const POLICY_API = {
+    getMessage: {
+        method: 'get',
+        url: '/api/v1/basic/info/entrepreneurial-policy-manage'
+    },
+    addPolicysMessage: {
+        method: 'post',
+        url: '/api/v1/basic/info/entrepreneurial-policy-manage'
+    },
+    updatePolicys: {
+        method: 'put',
+        url: '/api/v1/basic/info/entrepreneurial-policy-manage'
+    },
+    file: {
+        method: 'post',
+        url: '/api/v1/basic/upload-file'
+    }
+}
